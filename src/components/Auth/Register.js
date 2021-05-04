@@ -26,10 +26,6 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // if (password !== passwordConfirmation) {
-        //     return setError('Passwords do not match')
-        // }
-
         if (isPasswordValid()) {
             setError('')
             setIsLoading(true)
