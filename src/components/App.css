@@ -7,3 +7,11 @@ html, body, .app {
 .register-column {
     max-width: 40rem;
 }
+
+.messages-column {
+    margin-left: 320px;
+}
+
+.meta-column {
+    width: 4;
+}
