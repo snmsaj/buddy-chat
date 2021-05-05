@@ -6,17 +6,25 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import firebase from './firebase';
 import { BrowserRouter, Switch, Route, useHistory, withRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider, connect, useDispatch } from 'react-redux';
+import rootReducer from './reducers/userReducer';
+import { setUser } from './actions/actionCreators';
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const Root = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        dispatch(setUser(user));
         history.push("/");
       }
     })
-  }, [history])
+  }, [history, dispatch])
 
   return (
     <Switch>
@@ -27,11 +35,14 @@ const Root = () => {
   )
 }
 
-const RootWithAuth = withRouter(Root);
+const RootWithAuth = withRouter(connect(null, setUser)(Root));
+// const RootWithAuth = withRouter(Root)
 
 ReactDOM.render(
+  <Provider store={store}>
     <BrowserRouter>
       <RootWithAuth />
-    </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
