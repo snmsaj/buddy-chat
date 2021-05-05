@@ -15,3 +15,21 @@ html, body, .app {
 .meta-column {
     width: 4;
 }
+
+.menu {
+    background: #3c474c;
+    font-size: 1.2rem;
+}
+
+.user-panel {
+    background: #0d96d5;
+}
+
+.user-panel-row {
+    padding: 1.2em;
+    margin: 0;
+}
+
+.dropdown-header {
+    padding: .25em;
+}
