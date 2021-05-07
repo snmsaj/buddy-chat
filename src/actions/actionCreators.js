@@ -14,3 +14,13 @@ export const clearUser = () => {
         type: actionTypes.CLEAR_USER
     }
 }
+
+
+export const setCurrentGroup = (group) => {
+    return {
+        type: actionTypes.SET_CURRENT_GROUP,
+        payload: {
+            currentGroup:group
+        }
+    }
+}
