@@ -10,8 +10,8 @@ const Messages = (props) => {
     const [user] = useState(props.currentUser)
     const [messages, setMessages] = useState([])
     const [messagesLoading, setMessagesLoading] = useState(true)
-    const messagesRef = firebase.database().ref('messages')
-    // const [messagesRef] = useState(firebase.database().ref('messages'))
+    // const messagesRef = firebase.database().ref('messages')
+    const [messagesRef] = useState(firebase.database().ref('messages'))
 
 
     const addMessageListener = useCallback((groupId) => {
@@ -22,29 +22,35 @@ const Messages = (props) => {
           setMessages(loadedMessages)
           setMessagesLoading(false)
         })
-    }, [])
+    }, [messagesRef])
 
-    // const addListeners = useCallback((groupId) => {
-    //     addMessageListener(groupId)
-    // }, [addMessageListener])
+    const addListeners = useCallback((groupId) => {
+        addMessageListener(groupId)
+    }, [addMessageListener])
 
     useEffect(() => {
         if(group && user) {
-            addMessageListener(group.id)
+            addListeners(group.id)
         }
-    },[])
+    },[addListeners, group, user])
 
 
     
-    const displayMessages = (messages) => {
-        messages.length > 0 && messages.map((message) => (
-            <Message key={message.timestamp} message={message} user={user} />
-        ))
-        console.log(messages)
-    }
+    // const displayMessages = (messages) => {
+    //     messages.length > 0 && messages.map((message) => (
+    //         <Message key={message.timestamp} message={message} user={user} />
+    //     ))
+    //     console.log(messages)
+    // }
+
+    const displayMessages = messages.map((msg) => {
+        return (
+            <Message key={msg.timestamp} message={msg} user={user} />
+        )
+    })
 
     // const displayMessages = (messages) => {
-    //     messages.length > 0 && messages.map((message) => {
+    //     messages.map((message) => {
     //         return(
     //             <Message key={message.timestamp} message={message} user={user} />
     //         )
@@ -59,7 +65,7 @@ const Messages = (props) => {
 
             <Segment>
                 <Comment.Group className="messages">
-                    {displayMessages(messages)}
+                    {displayMessages}
                 </Comment.Group>
             </Segment>
 
