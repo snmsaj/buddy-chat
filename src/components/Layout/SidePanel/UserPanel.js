@@ -1,20 +1,11 @@
 import { Dropdown, Grid, Header, Icon, Image } from 'semantic-ui-react';
-import firebase from '../../firebase';
+import firebase from '../../../firebase';
 import { useState } from 'react';
 
 const UserPanel = (props) => {
     const [user] = useState(props.currentUser)
 
     const dropdownOptions = () => [
-        {
-            key: "user",
-            text: <span>Signed in as <strong>{user.displayName}</strong></span>,
-            disabled: true
-        },
-        {
-            key: "avatar",
-            text: <span>Change Avatar</span>,
-        },
         {
             key: "signout",
             text: <span onClick={handleSignout}>Sign Out</span>,
@@ -32,7 +23,7 @@ const UserPanel = (props) => {
     return (
 
         <Grid className="user-panel" >
-            <Grid.Column>
+            <Grid.Column className="user-panel-column">
                 <Grid.Row className="user-panel-row">
                     {/* App Header */}
                     <Header inverted floated="left" as="h3">
