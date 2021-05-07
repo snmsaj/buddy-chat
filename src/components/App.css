@@ -58,6 +58,6 @@ html, body, .app {
 }
 
 .message-self {
-    border-left: 2px solid teal;
+    border-left: 2px solid orange;
     padding-left: 8px;
   }
